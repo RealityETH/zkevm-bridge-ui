@@ -13,6 +13,7 @@ interface Env {
   VITE_ETHEREUM_BRIDGE_CONTRACT_ADDRESS: string;
   VITE_ETHEREUM_EXPLORER_URL: string;
   VITE_ETHEREUM_FORCE_UPDATE_GLOBAL_EXIT_ROOT: string;
+  VITE_ETHEREUM_FORKONOMIC_TOKEN_ADDRESS: string;
   VITE_ETHEREUM_PROOF_OF_EFFICIENCY_CONTRACT_ADDRESS: string;
   VITE_ETHEREUM_RPC_URL: string;
   VITE_FIAT_EXCHANGE_RATES_API_KEY?: string;
@@ -161,6 +162,7 @@ const envToDomain = ({
   VITE_ETHEREUM_BRIDGE_CONTRACT_ADDRESS,
   VITE_ETHEREUM_EXPLORER_URL,
   VITE_ETHEREUM_FORCE_UPDATE_GLOBAL_EXIT_ROOT,
+  VITE_ETHEREUM_FORKONOMIC_TOKEN_ADDRESS,
   VITE_ETHEREUM_PROOF_OF_EFFICIENCY_CONTRACT_ADDRESS,
   VITE_ETHEREUM_RPC_URL,
   VITE_FIAT_EXCHANGE_RATES_API_KEY,
@@ -186,6 +188,8 @@ const envToDomain = ({
   const forceUpdateGlobalExitRootForL1 = stringBooleanParser.parse(
     VITE_ETHEREUM_FORCE_UPDATE_GLOBAL_EXIT_ROOT
   );
+  const forkonomicTokenAddress = VITE_ETHEREUM_FORKONOMIC_TOKEN_ADDRESS;
+
   const bridgeApiUrl = VITE_BRIDGE_API_URL;
   const outdatedNetworkModal: domain.Env["outdatedNetworkModal"] = isOutdatedNetworkModalEnabled
     ? {
@@ -231,6 +235,7 @@ const envToDomain = ({
         VITE_FIAT_EXCHANGE_RATES_ETHEREUM_USDC_ADDRESS,
       }),
       forceUpdateGlobalExitRootForL1,
+      forkonomicTokenAddress,
       isDepositWarningEnabled,
       outdatedNetworkModal,
       reportForm: getReportFormEnv({
@@ -255,6 +260,7 @@ const envParser = StrictSchema<Env, domain.Env>()(
       VITE_ETHEREUM_BRIDGE_CONTRACT_ADDRESS: z.string().length(42),
       VITE_ETHEREUM_EXPLORER_URL: z.string().url(),
       VITE_ETHEREUM_FORCE_UPDATE_GLOBAL_EXIT_ROOT: z.string(),
+      VITE_ETHEREUM_FORKONOMIC_TOKEN_ADDRESS: z.string().length(42),
       VITE_ETHEREUM_PROOF_OF_EFFICIENCY_CONTRACT_ADDRESS: z.string().length(42),
       VITE_ETHEREUM_RPC_URL: z.string().url(),
       VITE_FIAT_EXCHANGE_RATES_API_KEY: z.string().optional(),

@@ -47,7 +47,7 @@ export const BridgeCard: FC<BridgeCardProps> = ({
     bridge.status !== "pending" ? [bridge.blockNumber, bridge.from.key] : [undefined, undefined];
 
   useEffect(() => {
-    if (status === "initiated" && fromKey === "polygon-zkevm") {
+    if (status === "initiated" && fromKey === "backstop-protocol") {
       setBatchNumberOfL2Block((currentBatchNumberOfL2Block) =>
         isAsyncTaskDataAvailable(currentBatchNumberOfL2Block)
           ? { data: currentBatchNumberOfL2Block.data, status: "reloading" }
