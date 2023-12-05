@@ -52,7 +52,7 @@ export const TokenList: FC<TokenListProps> = ({
     status: "pending",
   });
   const [defaultToken, setDefaultToken] = useState<Token | null>(null);
-  const [_, setIsLoadingDefaultToken] = useState(false);
+  const [, setIsLoadingDefaultToken] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const getTokenBalance = useCallback(
@@ -150,8 +150,7 @@ export const TokenList: FC<TokenListProps> = ({
     }
   };
 
-
-   useEffect(() => {
+  useEffect(() => {
     const fetchDefaultToken = async () => {
       if (env?.forkonomicTokenAddress && ethersUtils.isAddress(env?.forkonomicTokenAddress)) {
         setIsLoadingDefaultToken(true);
@@ -177,7 +176,7 @@ export const TokenList: FC<TokenListProps> = ({
     if (defaultToken) {
       setFilteredTokens([defaultToken, ...tokens]);
     }
-  }, [defaultToken, tokens]); 
+  }, [defaultToken, tokens]);
 
   useEffect(() => {
     if (customToken.status === "successful") {
