@@ -131,8 +131,8 @@ export const getChains = ({
       name: polygonZkEVMNetworkName,
       nativeCurrency: {
         decimals: 18,
-        name: "FORK",
-        symbol: "FORK",
+        name: "ZBS",
+        symbol: "ZBS",
       },
       networkId: polygonZkEVM.networkId,
       provider: polygonZkEVMProvider,
