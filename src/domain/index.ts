@@ -2,7 +2,7 @@ import { JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import { BigNumber } from "ethers";
 import { ComponentType } from "react";
 
-export type ChainKey = "ethereum" | "polygon-zkevm";
+export type ChainKey = "ethereum" | "backstop-protocol";
 
 export interface CommonChain {
   Icon: ComponentType<{ className?: string }>;
@@ -26,7 +26,7 @@ export type EthereumChain = CommonChain & {
 };
 
 export type ZkEVMChain = CommonChain & {
-  key: "polygon-zkevm";
+  key: "backstop-protocol";
 };
 
 export type Chain = EthereumChain | ZkEVMChain;
@@ -79,6 +79,7 @@ export interface Env {
         usdcToken: Token;
       };
   forceUpdateGlobalExitRootForL1: boolean;
+  forkonomicTokenAddress: string;
   isDepositWarningEnabled: boolean;
   outdatedNetworkModal:
     | {
@@ -101,6 +102,7 @@ export interface RouterState {
 export enum EthereumChainId {
   MAINNET = 1,
   GOERLI = 5,
+  SEPOLIA = 11155111,
 }
 
 export enum WalletName {

@@ -6,6 +6,7 @@ import { ReactComponent as InfoIcon } from "src/assets/icons/info.svg";
 import { ReactComponent as MagnifyingGlassIcon } from "src/assets/icons/magnifying-glass.svg";
 import { ReactComponent as XMarkIcon } from "src/assets/icons/xmark.svg";
 import { TOKEN_BLACKLIST } from "src/constants";
+import { useEnvContext } from "src/contexts/env.context";
 import { useTokensContext } from "src/contexts/tokens.context";
 import { AsyncTask, Chain, Token } from "src/domain";
 import { useCallIfMounted } from "src/hooks/use-call-if-mounted";
@@ -42,6 +43,7 @@ export const TokenList: FC<TokenListProps> = ({
   tokens,
 }) => {
   const classes = useTokenListStyles();
+  const env = useEnvContext();
   const callIfMounted = useCallIfMounted();
   const { getErc20TokenBalance, getTokenFromAddress } = useTokensContext();
   const [searchInputValue, setSearchInputValue] = useState<string>("");
@@ -49,6 +51,8 @@ export const TokenList: FC<TokenListProps> = ({
   const [customToken, setCustomToken] = useState<AsyncTask<Token, string>>({
     status: "pending",
   });
+  const [defaultToken, setDefaultToken] = useState<Token | null>(null);
+  const [, setIsLoadingDefaultToken] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const getTokenBalance = useCallback(
@@ -145,6 +149,34 @@ export const TokenList: FC<TokenListProps> = ({
       setCustomToken({ status: "pending" });
     }
   };
+
+  useEffect(() => {
+    const fetchDefaultToken = async () => {
+      if (env?.forkonomicTokenAddress && ethersUtils.isAddress(env?.forkonomicTokenAddress)) {
+        setIsLoadingDefaultToken(true);
+        try {
+          const token = await getTokenFromAddress({
+            address: env?.forkonomicTokenAddress,
+            chain: chains.from, // or any default chain
+          });
+          setDefaultToken(token);
+        } catch (error) {
+          console.error("Error fetching default token:", error);
+        } finally {
+          setIsLoadingDefaultToken(false);
+        }
+      }
+    };
+
+    fetchDefaultToken().catch((error) => console.error("Error fetching default token:", error));
+  }, [chains.from, getTokenFromAddress, env?.forkonomicTokenAddress]);
+
+  // Add the default token to the tokens list
+  useEffect(() => {
+    if (defaultToken) {
+      setFilteredTokens([defaultToken, ...tokens]);
+    }
+  }, [defaultToken, tokens]);
 
   useEffect(() => {
     if (customToken.status === "successful") {

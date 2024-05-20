@@ -1,8 +1,8 @@
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 import { ethers } from "ethers";
 
+import { ReactComponent as PolygonZkEVMChainIcon } from "src/assets/icons/chains/backstop-icon.svg";
 import { ReactComponent as EthChainIcon } from "src/assets/icons/chains/ethereum.svg";
-import { ReactComponent as PolygonZkEVMChainIcon } from "src/assets/icons/chains/polygon-zkevm.svg";
 import { Chain, Currency, EthereumChain, ProviderError, Token, ZkEVMChain } from "src/domain";
 import { ProofOfEfficiency__factory } from "src/types/contracts/proof-of-efficiency";
 import { getEthereumNetworkName } from "src/utils/labels";
@@ -59,7 +59,7 @@ export const GAS_PRICE_INCREASE_PERCENTAGE = 50; // 50%
 export const DEPOSIT_CHECK_WORD = "I understand";
 
 export const ETH_TOKEN_LOGO_URI =
-  "https://raw.githubusercontent.com/Uniswap/interface/main/src/assets/images/ethereum-logo.png";
+  "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png";
 
 export const POLYGON_SUPPORT_URL = "https://support.polygon.technology";
 
@@ -127,12 +127,12 @@ export const getChains = ({
       chainId: polygonZkEVMNetwork.chainId,
       explorerUrl: polygonZkEVM.explorerUrl,
       Icon: PolygonZkEVMChainIcon,
-      key: "polygon-zkevm",
+      key: "backstop-protocol",
       name: polygonZkEVMNetworkName,
       nativeCurrency: {
         decimals: 18,
-        name: "Ether",
-        symbol: "ETH",
+        name: "ZBS",
+        symbol: "ZBS",
       },
       networkId: polygonZkEVM.networkId,
       provider: polygonZkEVMProvider,
